@@ -2,9 +2,6 @@ import requests
 from bs4 import BeautifulSoup
 import xlwt
 
-douban_list = []
-result = []
-
 def get_douban_list():
     for i in range(0, 250, 25):
         douban_url = "https://movie.douban.com/top250?start={0}&filter=".format(i)
@@ -29,14 +26,18 @@ def getInfoFromOnePage(htmlPage):
     return result
 
 if '__main__':
-    book = xlwt.Workbook()
-    sheet = book.add_sheet('movie_sheet')
+    douban_list = []
+    result = []
 
+    #得到豆瓣电影list
     for i in get_douban_list():
         htmlPage = getHtmlPage(i)
         result = getInfoFromOnePage(htmlPage)
     result.insert(0, ['电影名', '评分', '评价人数', '短评'])
 
+    #存入excel
+    book = xlwt.Workbook()
+    sheet = book.add_sheet('movie_sheet')
     for row in range(0, 251):
         for col in range(0, 4):
             sheet.write(row, col, result[row][col])
