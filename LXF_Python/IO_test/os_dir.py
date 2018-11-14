@@ -12,8 +12,8 @@ os.rmdir('E:\\testDirS')# 删掉一个目录
 print(os.path.split('E:\\testDirS'))
 print(os.path.splitext('E:\\testDirS'))
 
-print(os.rename('test.txt', 'test.py'))# 对文件重命名
-print(os.remove('test.py'))# 删掉文件
+print(os.rename('test.txt', 'ele_distinct_keep_order.py'))# 对文件重命名
+print(os.remove('ele_distinct_keep_order.py'))# 删掉文件
 
 #列出当前目录下的所有目录
 print([x for x in os.listdir('.') if os.path.isdir(x)])
