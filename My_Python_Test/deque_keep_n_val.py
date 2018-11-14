@@ -11,6 +11,7 @@ def search(lines, pattern, history=5):
         previous_lines.append(line)
 
 
+ 
 # Example use on a file
 if __name__ == '__main__':
     with open(r'./12.txt') as f:
