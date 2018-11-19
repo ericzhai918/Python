@@ -24,9 +24,7 @@ class QSBK:
 
     # 获取文本中要截取的元素
     def getHtmlItems(self, divList):
-
         items = []
-
         for div in divList:
             item = []
             # 发布人
@@ -66,20 +64,17 @@ class QSBK:
     # 保存入文本
     def saveItem(self, items):
         f = open('E:\\Pythontest1\\qiushi.txt', "a", encoding='UTF-8')
-
         for item in items:
             name = item[0]
             content = item[1]
             love = item[2]
             num = item[3]
-
             # 写入文本
             f.write("发布人：" + name + '\n')
             f.write("内容：" + content + '\n')
             f.write("点赞数：" + love + '\t')
             f.write("评论人数：" + num)
             f.write('\n\n')
-
         f.close()
 
     # 判断文本是否已创建，添加路径
@@ -105,7 +100,6 @@ class QSBK:
             else:
                 print('程序运行结束！！')
                 self.enable = False
-
 
 spider = QSBK()
 spider.start()
