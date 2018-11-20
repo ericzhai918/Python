@@ -1,6 +1,7 @@
 import requests
 from lxml import etree
 import xlwt
+import os
 
 headers = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.146 Safari/537.36"
@@ -58,9 +59,15 @@ def saveItems(divItems):
             sheet.write(row, col, item)
             col += 1
         row += 1
-    book.save('E:\\qsbk.xls')
+    book.save('E:\\testfile\\qsbk.xls')
 
+def judgePath():
+    if os.path.exists('E:\\testfile') == False:
+        os.mkdir('E:\\testfile')
+    if os.path.exists('E:\\testfile\\qsbk.xls') == True:
+        os.remove('E:\\testfile\\qsbk.xls')
 
+judgePath()
 for page in range(1,30):
     divList = getDivList(page)
     divItems = getDivItem(divList)
