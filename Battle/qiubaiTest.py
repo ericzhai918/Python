@@ -2,14 +2,13 @@ import requests
 from lxml import etree
 import xlwt
 
-url = 'http://www.qiushibaike.com/hot/page/2'
-
 headers = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.146 Safari/537.36"
 }
+items = []
 
-
-def getDivList():
+def getDivList(page):
+    url = 'http://www.qiushibaike.com/hot/page/'+str(page)
     html = requests.get(url, headers=headers).text
     selector = etree.HTML(html)
     divList = selector.xpath('//div[@id="content-left"]/div')
@@ -17,7 +16,7 @@ def getDivList():
 
 
 def getDivItem(divList):
-    items = []
+
     for div in divList:
         item = []
         # 用户名
@@ -61,6 +60,9 @@ def saveItems(divItems):
         row += 1
     book.save('E:\\qsbk.xls')
 
-divList = getDivList()
-divItems = getDivItem(divList)
+
+for page in range(1,30):
+    divList = getDivList(page)
+    divItems = getDivItem(divList)
+    print("第 %d 页抓取完成" % (page))
 saveItems(divItems)
