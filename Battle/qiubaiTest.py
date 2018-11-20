@@ -1,10 +1,11 @@
 import requests
 from lxml import etree
+import xlwt
 
 url = 'http://www.qiushibaike.com/hot/page/2'
 
 headers = {
-     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.146 Safari/537.36"
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.146 Safari/537.36"
 }
 
 
@@ -13,6 +14,7 @@ def getDivList():
     selector = etree.HTML(html)
     divList = selector.xpath('//div[@id="content-left"]/div')
     return divList
+
 
 def getDivItem(divList):
     items = []
@@ -47,9 +49,18 @@ def getDivItem(divList):
         items.append(item)
     return items
 
+def saveItems(divItems):
+    book = xlwt.Workbook()
+    sheet = book.add_sheet("my_sheet")
+    row = 0
+    for items in divItems:
+        col = 0
+        for item in items:
+            sheet.write(row, col, item)
+            col += 1
+        row += 1
+    book.save('E:\\qsbk.xls')
+
 divList = getDivList()
 divItems = getDivItem(divList)
-print(divItems)
-
-
-
+saveItems(divItems)
