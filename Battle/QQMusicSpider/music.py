@@ -35,18 +35,14 @@ def download(guid, songmid, cookie_dict):
 
 
 def getCookies():
+    #周杰伦歌曲页面的fcg_v8_singer_track
     url = 'https://c.y.qq.com/v8/fcg-bin/fcg_v8_singer_track_cp.fcg?g_tk=5381&jsonpCallback=MusicJsonCallbacksinger_track&loginUin=0&hostUin=0&format=jsonp&inCharset=utf8&outCharset=utf-8&notice=0&platform=yqq&needNewCode=0&singermid=0025NhlN2yWrP4&order=listen&begin=0&num=30&songstatus=1'
     chrome_options = Options()
     chrome_options.add_argument('--headless')
     driver = webdriver.Chrome(chrome_options=chrome_options)
     driver.get('https://y.qq.com/')
-    a=driver.get_cookies()
-    print(a)
     time.sleep(5)
     driver.get(url)
-    b=driver.get_cookies()
-    print(b)
-    print(a==b)
     time.sleep(5)
     one_cookie = driver.get_cookies()
     driver.quit()
@@ -111,36 +107,6 @@ def get_all_singer():
         pagecount = math.ceil(int(total)/80)
         page_list = [x for x in range(1,pagecount+1)]
         get_genre_singer(index,page_list,cookie_dict)
-
-# def myThread(index,cookie_dict):
-#     url = 'https://u.y.qq.com/cgi-bin/musicu.fcg?loginUin=0&hostUin=0&format=jsonp&inCharset=utf8&' \
-#           'outCharset=utf-8&notice=0&platform=yqq&needNewCode=0&data=%7B%22comm%22%3A%7B%22ct%22%3A24%2C%22cv' \
-#           '%22%3A10000%7D%2C%22singerList%22%3A%7B%22module%22%3A%22Music.SingerListServer%22%2C%22method%22%3A%22' \
-#           'get_singer_list%22%2C%22param%22%3A%7B%22area%22%3A-100%2C%22sex%22%3A-100%2C%22genre%22%3A-100%2C%22index' \
-#           '%22%3A-100%2C%22sin%22%3A' + str(index) + '%2C%22cur_page%22%3A1%7D%7D%7D'
-#
-#     r = session.get(url, headers=headers)
-#     total = r.json()['singerList']['data']['total']
-#     pagecount = math.ceil(int(total) / 80)
-#     page_list = [x for x in range(1, pagecount + 1)]
-#     thread_number = 10
-#     list_interval = math.ceil(len(page_list)/thread_number)
-#
-#     Thread = ThreadPoolExecutor(max_workers=thread_number)
-#     for i in range(thread_number):
-#         start_num = list_interval*i
-#         if list_interval*(i+1) <= len(page_list):
-#             end_num = list_interval*(i+1)
-#         else:
-#             end_num = len(page_list)
-#         Thread.submit(get_genre_singer,index,page_list[start_num,end_num],cookie_dict)
-#
-# def myProcess():
-#     with ProcessPoolExecutor(max_workers=27) as executor:
-#         cookie_dict = getCookies()
-#         for index in range(1,28):
-#             executor.submit(myThread,index,cookie_dict)
-
 
 if __name__ == '__main__':
     # myProcess()
