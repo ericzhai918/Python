@@ -3,7 +3,6 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 import math
 from music_db import *
-from concurrent.futures import ThreadPoolExecutor,ProcessPoolExecutor
 
 
 headers = {
@@ -98,9 +97,9 @@ def get_all_singer():
     cookie_dict = getCookies()
     for index in range(1,28):
         url='https://u.y.qq.com/cgi-bin/musicu.fcg?loginUin=0&hostUin=0&format=jsonp&inCharset=utf8&'\
-                'outCharset=utf-8&notice=0&platform=yqq&needNewCode=0&data=%7B%22comm%22%3A%7B%22ct%22%3A24%2C%22cv'\
+            'outCharset=utf-8&notice=0&platform=yqq&needNewCode=0&data=%7B%22comm%22%3A%7B%22ct%22%3A24%2C%22cv'\
             '%22%3A10000%7D%2C%22singerList%22%3A%7B%22module%22%3A%22Music.SingerListServer%22%2C%22method%22%3A%22'\
-                'get_singer_list%22%2C%22param%22%3A%7B%22area%22%3A-100%2C%22sex%22%3A-100%2C%22genre%22%3A-100%2C%22index'\
+            'get_singer_list%22%2C%22param%22%3A%7B%22area%22%3A-100%2C%22sex%22%3A-100%2C%22genre%22%3A-100%2C%22index'\
             '%22%3A-100%2C%22sin%22%3A'+str(index)+'%2C%22cur_page%22%3A1%7D%7D%7D'
         r =session.get(url,headers=headers)
         total = r.json()['singerList']['data']['total']
