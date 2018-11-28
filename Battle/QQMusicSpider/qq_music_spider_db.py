@@ -21,6 +21,8 @@ class Song(Base):
     song_interval = Column(String(100))
     song_songmid = Column(String(100))
     song_singer = Column(String(100))
+    song_singermid = Column(String(100))
+    song_albummid = Column(String(100))
 #创建数据表
 Base.metadata.create_all(engine)
 #数据入库
@@ -31,10 +33,12 @@ def insert_data(song_dict):
     #创建新Song对象
     data = Song(
         song_name=song_dict['song_name'],
+        song_songmid=song_dict['song_songmid'],
         song_album=song_dict['song_album'],
         song_interval=song_dict['song_interval'],
-        song_songmid=song_dict['song_songmid'],
         song_singer=song_dict['song_singer'],
+        song_singermid=song_dict['song_singermid'],
+        song_albummid=song_dict['song_albummid'],
     )
     # 添加到session
     SQLsession.add(data)
