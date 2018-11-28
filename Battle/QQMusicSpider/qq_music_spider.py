@@ -2,6 +2,7 @@ import requests
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 import time
+import math
 
 headers = {
     'user-agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.146 Safari/537.36'
@@ -48,6 +49,35 @@ def getCookies():
         cookie_dict[i['name']] = i['value']
     return cookie_dict
 
+def get_singer_songs(singermid,cookie_dict):
+    #此url用于动态设置歌手的 singermid，获取歌曲总数和歌手姓名
+    url = 'https://c.y.qq.com/v8/fcg-bin/fcg_v8_singer_track_cp.fcg?loginUin=0&hostUin=0&format=jsonp&inCharset=utf8&outCharset=utf-8&'\
+          'notice=0&platform=yqq&needNewCode=0&singermid=%s&order=listen&begin=0&num=30&songstatus=1' %(singermid)
+    r = session.get(url)
+    song_singer = r.json()['data']['singer_name']
+    songcount = r.json()['data']['total']
+    pagecount = math.ceil(int(songcount)/30)
+    for p in range(pagecount):
+        #此url用于动态设置页数，获取当前歌手每一页的歌曲信息
+        url = 'https://c.y.qq.com/v8/fcg-bin/fcg_v8_singer_track_cp.fcg?loginUin=0&hostUin=0&format=jsonp&inCharset=utf8&outCharset=utf-8&' \
+              'notice=0&platform=yqq&needNewCode=0&singermid=%s&order=listen&begin=%s&num=30&songstatus=1' % (singermid, p * 30)
+        r = session.get(url)
+        music_data = r.json()['data']['list']
+        song_dict = {}
+        for i in music_data:
+            song_dict['song_name'] = i['musicData']['songname']
+            song_dict['song_album'] = i['musicData']['albumname']
+            song_dict['song_interval'] = i['musicData']['interval']
+            song_dict['song_songmid'] = i['musicData']['songmid']
+            song_dict['song_singer'] = song_singer
+
+            download(cookie_dict['pgv_pvid'],song_dict['song_songmid'],cookie_dict)
+            song_dict = {}
+
+def get_genre_singer(index,page_list,cookie_dict):
+    pass
+
 if __name__ == '__main__':
     cookie_dict = getCookies()
-    download(cookie_dict['pgv_pvid'], '002wKHHm42wVh1', cookie_dict)
+    get_singer_songs('0025NhlN2yWrP4',cookie_dict)
+
