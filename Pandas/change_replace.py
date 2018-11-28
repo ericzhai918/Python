@@ -1,5 +1,4 @@
 import pandas as pd
-import numpy as np
 
 df_2 = pd.read_csv('Salary_2.txt', sep=',', header='infer',encoding = 'utf-8')
 
