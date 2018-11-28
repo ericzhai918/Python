@@ -75,7 +75,17 @@ def get_singer_songs(singermid,cookie_dict):
             song_dict = {}
 
 def get_genre_singer(index,page_list,cookie_dict):
-    pass
+    for page in page_list:
+        url = 'https://u.y.qq.com/cgi-bin/musicu.fcg?loginUin=0&hostUin=0&format=jsonp&inCharset=utf8&outCharset=utf-8&'\
+                'notice=0&platform=yqq&needNewCode=0&data=%7B%22comm%22%3A%7B%22ct%22%3A24%2C%22cv%22%3A10000%7D%2C%22'\
+                'singerList%22%3A%7B%22module%22%3A%22Music.SingerListServer%22%2C%22method%22%3A%22get_singer_list%22%2C'\
+              '%22param%22%3A%7B%22area%22%3A-100%2C%22sex%22%3A-100%2C%22genre%22%3A-100%2C%22index%22%3A'+str(index)+'%2'\
+                'C%22sin%22%3A'+str((page-1)*80)+'%2C%22cur_page%22%3A'+str(page)+'%7D%7D%7D'
+        r = session.get(url)
+        for k in r.json()['singerList']['data']['singerlist']:
+            singermid = k['singer_mid']
+            get_singer_songs(singermid, cookie_dict)
+
 
 if __name__ == '__main__':
     cookie_dict = getCookies()
