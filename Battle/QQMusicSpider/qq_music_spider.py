@@ -3,6 +3,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 import time
 import math
+from qq_music_spider_db import *
 
 headers = {
     'user-agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.146 Safari/537.36'
@@ -71,7 +72,11 @@ def get_singer_songs(singermid,cookie_dict):
             song_dict['song_songmid'] = i['musicData']['songmid']
             song_dict['song_singer'] = song_singer
 
-            download(cookie_dict['pgv_pvid'],song_dict['song_songmid'],cookie_dict)
+            info = download(cookie_dict['pgv_pvid'],song_dict['song_songmid'],cookie_dict)
+
+            if info:
+                insert_data(song_dict)
+
             song_dict = {}
 
 def get_genre_singer(index,page_list,cookie_dict):
