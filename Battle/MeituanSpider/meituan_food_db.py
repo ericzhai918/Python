@@ -3,7 +3,7 @@ from sqlalchemy import *
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 
-engine = create_engine('mysql+pymysql://root:123456@localhost/food_db?charset=utf8mb4')
+engine = create_engine('mysql+pymysql://root:123456@localhost/meituan_food_db?charset=utf8mb4')
 DBsession = sessionmaker(bind=engine)
 SQLsession = DBsession()
 Base = declarative_base()
@@ -11,7 +11,7 @@ Base = declarative_base()
 
 # 商家表
 class shop(Base):
-    __table__ = "meituan_shop"
+    __tablename__ = 'meituan_shop'
     id = Column(Integer(), primary_key=True)
     shop_id = Column(String(100), comment='商家ID')
     shop_name = Column(String(300), comment='商家名称')
@@ -73,11 +73,12 @@ def shop_db(info_dict):
             shop_avgPrice=info_dict.get('shop_avgPrice', ''),
             shop_city=info_dict.get('shop_city', ''),
             log_date=time.strftime('%Y-%m-%d', time.localtime(time.time())),
-            shop_latitude = info_dict.get('shop_latitude', ''),
-            shop_longitude = info_dict.get('shop_longitude', ''),
+            shop_latitude=info_dict.get('shop_latitude', ''),
+            shop_longitude=info_dict.get('shop_longitude', ''),
         )
         SQLsession.add(inset_data)
     SQLsession.commit()
+
 
 # 写入评论信息
 def comment_db(info_dict):

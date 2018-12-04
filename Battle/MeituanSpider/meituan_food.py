@@ -26,6 +26,7 @@ def get_all_city(city_list):
 
 
 def get_shop_info(city, uuid, shop_Ids):
+    r = ''
     for shop_Id in shop_Ids:
         url = 'http://www.meituan.com/meishi/%s/' % (id)
         headers = {
@@ -69,12 +70,10 @@ def get_shop_info(city, uuid, shop_Ids):
                 recommended_food = all_json['recommended']
                 for i in recommended_food:
                     recommended_food_info[i['name']] = i['price']
-
                 # 入库
                 shop_db(shop_info)
-
                 get_shop_comments(uuid[0], shop_Id)
-
+        time.sleep(3)
 
 def get_shop_comments(uuid, shop_Id):
     headers = {
