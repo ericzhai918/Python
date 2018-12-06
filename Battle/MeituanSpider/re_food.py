@@ -5,6 +5,7 @@ import random
 import configparser
 import time
 from re_food_db import *
+from re_redis import *
 
 
 def get_all(city):
@@ -90,11 +91,15 @@ def get_info(find_poiId, city, find_uuid):
                 shop_info['shop_latitude'] = value[0] if value else ''
                 value = re.findall('"longitude":(.*?),', r.text)
                 shop_info['shop_longitude'] = value[0] if value else ''
-                # 入库
-                shop_db(shop_info)
+
+                print(rd.exists(shop_info['shop_id']))
+                if not rd.exists(shop_info['shop_id']):
+                    # 入库
+                    shop_db(shop_info)
+                    rd.setnx(shop_info['shop_id'],shop_info['shop_name'])
                 # 调用get_comment()
                 # get_comment(find_uuid[0], b)
-        time.sleep(3)
+        #time.sleep(3)
         print(b)
 
 
@@ -115,8 +120,18 @@ if __name__ == '__main__':
         'client-id=60e58b77-d0c9-4faf-bc8b-6b400405fbe3; uuid=e7e1639e-af9b-412b-bee1-25846f3fedc6; _lxsdk_cuid=1646d6f4287c8-04ac35e4a5929b-3c3c590b-100200-1646d6f428770; _lxsdk=1646d6f4287c8-04ac35e4a5929b-3c3c590b-100200-1646d6f428770; lat=23.124033; lng=113.397598; webloc_geo=23.000075%2C113.104244%2Cwgs84; ci=92; _lxsdk_s=1646d6f428d-f17-5e5-20%7C%7C2',
         'uuid=475376bc6e554904962b.1530844373.1.0.0; ci=92; rvct=92; _lxsdk_cuid=1646d6fe270c8-02ace3b33e129-3c3c590b-100200-1646d6fe27052; client-id=e5b040a2-ca2c-46c9-bbec-d64ae88c39ff; _lxsdk=1646d6fe270c8-02ace3b33e129-3c3c590b-100200-1646d6fe27052; lat=23.114442; lng=113.158431; _lxsdk_s=1646d6fe272-6e5-682-4f2%7C%7C6',
     ]
+    categorize_dict = {'蛋糕甜点': 'c11', '火锅': 'c17', '自助餐': 'c40', '小吃快餐': 'c36',
+                       '日本料理': 'c20059', '韩国料理': 'c20060', '西餐': 'c35',
+                       '聚餐宴请': 'c395', '东北菜': 'c20003', '烧烤烤肉': 'c54',
+                       '川湘菜': 'c55', '江浙菜': 'c56', '香锅烤鱼': 'c20004', '粤菜': 'c57',
+                       '中式烧烤/烤串': 'c400', '西北菜': 'c58', '咖啡酒吧': 'c41', '京菜鲁菜': 'c59',
+                       '云贵菜': 'c60', '东南亚菜': 'c62', '海鲜': 'c63', '台湾/客家菜': 'c227',
+                       '创意菜': 'c228', '汤/粥/炖菜': 'c229', '新疆菜': 'c233', '其他美食': 'c24',
+                       '代金券': 'c393'}
     # get_all('sh')
-    get_all_by_categorize('sh', 'c17')
+    for v in categorize_dict.values():
+        get_all_by_categorize('sh', v)
+    # get_all_by_categorize('sh', 'c395')
 
 # categorize_dict = {'蛋糕甜点': 'c11', '火锅': 'c17', '自助餐': 'c40', '小吃快餐': 'c36',
 #                    '日本料理': 'c20059', '韩国料理': 'c20060', '西餐': 'c35',
