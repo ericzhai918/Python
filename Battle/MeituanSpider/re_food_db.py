@@ -3,6 +3,7 @@ from sqlalchemy import *
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 
+
 # 使用utf8mb4编码连接MySql
 engine = create_engine('mysql+pymysql://root:123456@localhost/re_food_db?charset=utf8mb4')
 DBSession = sessionmaker(bind=engine)
@@ -30,10 +31,10 @@ Base.metadata.create_all(engine)
 
 # 写入商家信息
 def shop_db(info_dict):
-    temp_id = info_dict['shop_id']
-    # 判断是否已存在记录
-    info = SQLsession.query(shop).filter_by(shop_id=temp_id).first()
-    if info:
+    # temp_id = info_dict['shop_id']
+    # # 判断是否已存在记录
+    # info = SQLsession.query(shop).filter_by(shop_id=temp_id).first()
+    # if info:
         # info.shop_id = info_dict.get('shop_id', '')
         # info.shop_name = info_dict.get('shop_name', '')
         # info.shop_address = info_dict.get('shop_address', '')
@@ -45,22 +46,23 @@ def shop_db(info_dict):
         # info.log_date = time.strftime('%Y-%m-%d', time.localtime(time.time()))
         # info.latitude = info_dict.get('shop_latitude', '')
         # info.longitude = info_dict.get('shop_longitude', '')
-        pass
-
-    else:
-        inset_data = shop(
-            shop_id=info_dict.get('shop_id', ''),
-            shop_name=info_dict.get('shop_name', ''),
-            shop_address=info_dict.get('shop_address', ''),
-            shop_phone=info_dict.get('shop_phone', ''),
-            shop_openTime=info_dict.get('shop_openTime', ''),
-            shop_avgScore=info_dict.get('shop_avgScore', ''),
-            shop_avgPrice=info_dict.get('shop_avgPrice', ''),
-            shop_city=info_dict.get('shop_city', ''),
-            log_date=time.strftime('%Y-%m-%d', time.localtime(time.time())),
-            shop_latitude = info_dict.get('shop_latitude', ''),
-            shop_longitude=info_dict.get('shop_longitude', ''),
+    #     pass
+    #
+    # else:
+    inset_data = shop(
+        shop_id=info_dict.get('shop_id', ''),
+        shop_name=info_dict.get('shop_name', ''),
+        shop_address=info_dict.get('shop_address', ''),
+        shop_phone=info_dict.get('shop_phone', ''),
+        shop_openTime=info_dict.get('shop_openTime', ''),
+        shop_avgScore=info_dict.get('shop_avgScore', ''),
+        shop_avgPrice=info_dict.get('shop_avgPrice', ''),
+        shop_city=info_dict.get('shop_city', ''),
+        log_date=time.strftime('%Y-%m-%d', time.localtime(time.time())),
+        shop_latitude = info_dict.get('shop_latitude', ''),
+        shop_longitude=info_dict.get('shop_longitude', ''),
         )
-        SQLsession.add(inset_data)
+    SQLsession.add(inset_data)
     SQLsession.commit()
+
 
