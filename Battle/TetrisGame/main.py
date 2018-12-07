@@ -13,6 +13,7 @@ EDGE_COLOR = (0, 0, 0)
 CELL_COLOR = (100, 100, 100)
 BG_COLOR = (230, 230, 230)
 
+
 def main():
     pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -28,12 +29,21 @@ def main():
 
         screen.fill(bg_color)
         draw_game_area(screen)
+        draw_cell(screen, GAME_AREA_LEFT, GAME_AREA_TOP)
         # 重绘界面
         pygame.display.flip()
 
 
 def draw_game_area(screen):
     pygame.draw.line(screen, (0, 0, 0), (100, 100), (200, 200))
+    pass
+
+
+def draw_cell(screen, left, top):
+    cell_left_top = (left, top)
+    cell_width_height = (CELL_WIDTH, CELL_WIDTH)
+    cell_rect = pygame.Rect(cell_left_top, cell_width_height)
+    pygame.draw.rect(screen, CELL_COLOR, cell_rect)
     pass
 
 
