@@ -1,18 +1,7 @@
 import pygame
 from pygame.locals import *
 import sys
-
-SCREEN_WIDTH = 1200
-SCREEN_HEIGHT = 900
-CELL_WIDTH = 40
-GAME_AREA_WIDTH = CELL_WIDTH * 10
-GAME_AREA_HEIGHT = CELL_WIDTH * 20
-GAME_AREA_LEFT = (SCREEN_WIDTH - GAME_AREA_WIDTH) // 2
-GAME_AREA_TOP = SCREEN_HEIGHT - GAME_AREA_HEIGHT
-EDGE_COLOR = (0, 0, 0)
-CELL_COLOR = (100, 100, 100)
-BG_COLOR = (230, 230, 230)
-
+from settings import *
 
 def main():
     pygame.init()
