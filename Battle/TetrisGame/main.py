@@ -3,14 +3,17 @@ from pygame.locals import *
 import sys
 try:
     from settings import *
+    from piece import Piece
 except:
     from .settings import *
+    from .piece import Piece
 
 def main():
     pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     pygame.display.set_caption('俄罗斯方块')
     bg_color = BG_COLOR
+    piece = Piece('S',screen)
 
     # 窗口主循环
     while True:
@@ -22,6 +25,7 @@ def main():
         screen.fill(bg_color)
         draw_game_area(screen)
         draw_cell(screen, GAME_AREA_LEFT, GAME_AREA_TOP)
+        piece.paint()
         # 重绘界面
         pygame.display.flip()
 
