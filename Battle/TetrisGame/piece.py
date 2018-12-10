@@ -1,4 +1,5 @@
 import pygame
+
 try:
     from settings import *
 except:
@@ -14,7 +15,7 @@ class Piece():
 
     def paint(self):
         shape_template = PIECES[self.shape]
-        #r是行，c是列，x加的是行r，y加的是列c
+        # r是行，c是列，x加的是行r，y加的是列c
         for r in range(len(shape_template)):
             for c in range(len(shape_template[0])):
                 if shape_template[r][c] == 'O':
@@ -27,13 +28,44 @@ class Piece():
         pygame.draw.rect(self.screen, CELL_COLOR, cell_rect)
 
     def move_right(self):
-        self.x += 1
+        if self.can_move_right():
+            self.x += 1
 
     def move_left(self):
-        self.x -= 1
+        if self.can_move_left():
+            self.x -= 1
 
     def move_down(self):
-        self.y +=1
+        if self.can_move_down():
+            self.y += 1
 
+    def move_up(self):
+        self.y -= 1
 
+    def can_move_right(self):
+        shape_mtx = PIECES[self.shape]
+        for r in range(len(shape_mtx)):
+            for c in range(len(shape_mtx[0])):
+                if shape_mtx[r][c] == 'O':
+                    # 如果方块在最右侧，该方法返回False，否则返回True
+                    if self.x + c >= COLUMN_NUM - 1:
+                        return False
+        return True
 
+    def can_move_left(self):
+        shape_mtx = PIECES[self.shape]
+        for r in range(len(shape_mtx)):
+            for c in range(len(shape_mtx[0])):
+                if shape_mtx[r][c] == 'O':
+                    if self.x + c <= 0:
+                        return False
+        return True
+
+    def can_move_down(self):
+        shape_mtx = PIECES[self.shape]
+        for r in range(len(shape_mtx)):
+            for c in range(len(shape_mtx[0])):
+                if shape_mtx[r][c] == 'O':
+                    if self.y + r >= LINE_NUM - 1:
+                        return False
+        return True
