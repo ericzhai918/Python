@@ -18,7 +18,7 @@ def main():
     # 窗口主循环
     while True:
         # 遍历事件队列
-        check_events()
+        check_events(piece)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:  # 点击右上角的'X'，终止主循环
                 sys.exit()
@@ -49,19 +49,19 @@ def draw_cell(screen, left, top):
     pygame.draw.rect(screen, CELL_COLOR, cell_rect)
 
 
-def check_events():
+def check_events(piece):
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_DOWN:
-                print("向下方向键被按下")
+                piece.move_down()
             elif event.key == pygame.K_UP:
                 print("向上方向键被按下")
             elif event.key == pygame.K_LEFT:
-                print("向左方向键被按下")
+                piece.move_left()
             elif event.key == pygame.K_RIGHT:
-                print("向右方向键被按下")
+                piece.move_right()
 
 if __name__ == "__main__":
      main()

@@ -25,3 +25,15 @@ class Piece():
         cell_width_height = (CELL_WIDTH - 2, CELL_WIDTH - 2)
         cell_rect = pygame.Rect(cell_position, cell_width_height)
         pygame.draw.rect(self.screen, CELL_COLOR, cell_rect)
+
+    def move_right(self):
+        self.x += 1
+
+    def move_left(self):
+        self.x -= 1
+
+    def move_down(self):
+        self.y +=1
+
+
+
