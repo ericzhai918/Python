@@ -13,6 +13,7 @@ class Piece():
         self.shape = shape
         self.turn_times = 0
         self.screen = screen
+        self.at_bottom = False
 
     def paint(self):
         shape_template = PIECES[self.shape]
@@ -40,6 +41,8 @@ class Piece():
     def move_down(self):
         if self.can_move_down():
             self.y += 1
+        else:
+            self.at_bottom = True
 
     def turn(self):
         shape_list_len = len(PIECES[self.shape])
