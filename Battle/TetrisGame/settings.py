@@ -37,44 +37,44 @@ I_SHAPE_TEMPLATE = [['.O..',
 O_SHAPE_TEMPLATE = [['OO',
                      'OO']]
 
-J_SHAPE_TEMPLATE = [['..O.',
-                     '..O.',
-                     '.OO.'],
-                    ['O...',
-                     'OOO.',
-                     '....'],
-                    ['.OO.',
-                     '.O..',
-                     '.O..'],
-                    ['OOO.',
-                     '..O.',
-                     '....']]
+J_SHAPE_TEMPLATE = [['.O.',
+                     '.O.',
+                     'OO.'],
+                    ['O..',
+                     'OOO',
+                     '...'],
+                    ['.OO',
+                     '.O.',
+                     '.O.'],
+                    ['OOO',
+                     '..O',
+                     '...']]
 
-L_SHAPE_TEMPLATE = [['.O..',
-                     '.O..',
-                     '.OO.'],
-                    ['....',
-                     'OOO.',
-                     'O...'],
-                    ['.OO.',
-                     '..O.',
-                     '..O.'],
-                    ['..O.',
-                     'OOO.',
-                     '....']]
+L_SHAPE_TEMPLATE = [['.O.',
+                     '.O.',
+                     '.OO'],
+                    ['...',
+                     'OOO',
+                     'O..'],
+                    ['.OO',
+                     '..O',
+                     '..O'],
+                    ['..O',
+                     'OOO',
+                     '...']]
 
-T_SHAPE_TEMPLATE = [['.O..',
-                     'OOO.',
-                     '....'],
-                    ['.O..',
-                     '.OO.',
-                     '.O..'],
-                    ['....',
-                     'OOO.',
-                     '.O..'],
-                    ['..O.',
-                     '.OO.',
-                     '..O.']]
+T_SHAPE_TEMPLATE = [['.O.',
+                     'OOO',
+                     '...'],
+                    ['.O.',
+                     '.OO',
+                     '.O.'],
+                    ['...',
+                     'OOO',
+                     '.O.'],
+                    ['..O',
+                     '.OO',
+                     '..O']]
 
 PIECES = {
     'S': S_SHAPE_TEMPLATE,
@@ -83,6 +83,7 @@ PIECES = {
     'L': L_SHAPE_TEMPLATE,
     'O': O_SHAPE_TEMPLATE,
     'T': T_SHAPE_TEMPLATE,
+    'I': I_SHAPE_TEMPLATE
 }
 
 PIECE_TYPES = ['S', 'Z', 'J', 'L', 'I', 'O', 'T']

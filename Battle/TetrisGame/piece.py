@@ -8,7 +8,7 @@ except:
 
 class Piece():
     def __init__(self, shape, screen):
-        self.x = 3
+        self.x = 4
         self.y = 0
         self.shape = shape
         self.turn_times = 0
