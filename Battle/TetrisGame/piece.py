@@ -44,6 +44,10 @@ class Piece():
         else:
             self.at_bottom = True
 
+    def fall_down(self):
+        while not self.at_bottom:
+            self.move_down()
+
     def turn(self):
         shape_list_len = len(PIECES[self.shape])
         if self.can_turn():

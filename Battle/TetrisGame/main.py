@@ -15,6 +15,7 @@ def main():
     pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     pygame.display.set_caption('俄罗斯方块')
+    pygame.key.set_repeat(10,100)
     bg_color = BG_COLOR
     piece = None
     random.seed(int(time.time()))
@@ -67,6 +68,8 @@ def check_events(piece):
                 piece.move_left()
             elif event.key == pygame.K_RIGHT:
                 piece.move_right()
+            elif event.key == pygame.K_f:
+                piece.fall_down()
 
 if __name__ == "__main__":
      main()
