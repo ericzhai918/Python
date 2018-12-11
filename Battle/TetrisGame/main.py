@@ -7,16 +7,21 @@ try:
 except:
     from .settings import *
     from .piece import Piece
+import random
+import time
 
 def main():
+
     pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     pygame.display.set_caption('俄罗斯方块')
     bg_color = BG_COLOR
-    piece = Piece('S',screen)
-
+    piece = None
+    random.seed(int(time.time()))
     # 窗口主循环
     while True:
+        if not piece or piece.at_bottom:
+            piece = Piece(random.choice(PIECE_TYPES),screen)
         # 遍历事件队列
         check_events(piece)
         for event in pygame.event.get():
