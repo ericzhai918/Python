@@ -4,9 +4,11 @@ import sys
 try:
     from settings import *
     from piece import Piece
+    from gamewall import *
 except:
     from .settings import *
     from .piece import Piece
+    from .gamewall import *
 import random
 import time
 
@@ -19,9 +21,11 @@ def main():
     bg_color = BG_COLOR
     piece = None
     random.seed(int(time.time()))
+    game_wall = GameWall(screen)
     # 窗口主循环
     while True:
         if not piece or piece.at_bottom:
+            game_wall.add_to_wall(piece)
             piece = Piece(random.choice(PIECE_TYPES),screen)
         # 遍历事件队列
         check_events(piece)
@@ -70,6 +74,8 @@ def check_events(piece):
                 piece.move_right()
             elif event.key == pygame.K_f:
                 piece.fall_down()
+
+
 
 if __name__ == "__main__":
      main()

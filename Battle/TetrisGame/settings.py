@@ -97,3 +97,5 @@ PIECE_COLORS = {
     'O': (255, 0, 0),
     'T': (255, 128, 0)
 }
+
+WALL_BLANK_LABEL = '-'
