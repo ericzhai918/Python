@@ -11,14 +11,16 @@ class Piece():
         self.x = 3
         self.y = 0
         self.shape = shape
+        self.turn_times = 0
         self.screen = screen
 
     def paint(self):
         shape_template = PIECES[self.shape]
+        shape_turn = shape_template[self.turn_times]
         # r是行，c是列，x加的是行r，y加的是列c
-        for r in range(len(shape_template)):
-            for c in range(len(shape_template[0])):
-                if shape_template[r][c] == 'O':
+        for r in range(len(shape_turn)):
+            for c in range(len(shape_turn[0])):
+                if shape_turn[r][c] == 'O':
                     self.draw_cell(self.x + c, self.y + r)
 
     def draw_cell(self, x, y):
@@ -39,11 +41,13 @@ class Piece():
         if self.can_move_down():
             self.y += 1
 
-    def move_up(self):
-        self.y -= 1
+    def turn(self):
+        shape_list_len = len(PIECES[self.shape])
+        if self.can_turn():
+            self.turn_times = (self.turn_times + 1) % shape_list_len
 
     def can_move_right(self):
-        shape_mtx = PIECES[self.shape]
+        shape_mtx = PIECES[self.shape][0]
         for r in range(len(shape_mtx)):
             for c in range(len(shape_mtx[0])):
                 if shape_mtx[r][c] == 'O':
@@ -53,7 +57,7 @@ class Piece():
         return True
 
     def can_move_left(self):
-        shape_mtx = PIECES[self.shape]
+        shape_mtx = PIECES[self.shape][0]
         for r in range(len(shape_mtx)):
             for c in range(len(shape_mtx[0])):
                 if shape_mtx[r][c] == 'O':
@@ -62,10 +66,21 @@ class Piece():
         return True
 
     def can_move_down(self):
-        shape_mtx = PIECES[self.shape]
+        shape_mtx = PIECES[self.shape][0]
         for r in range(len(shape_mtx)):
             for c in range(len(shape_mtx[0])):
                 if shape_mtx[r][c] == 'O':
                     if self.y + r >= LINE_NUM - 1:
+                        return False
+        return True
+
+    def can_turn(self):
+        shape_list_len = len(PIECES[self.shape])
+        turn_times = (self.turn_times + 1) % shape_list_len
+        shape_mtx = PIECES[self.shape][turn_times]
+        for r in range(len(shape_mtx)):
+            for c in range(len(shape_mtx[0])):
+                if shape_mtx[r][c] == 'O':
+                    if (self.x + c < 0 or self.x + c >= COLUMN_NUM) or (self.y + r < 0 or self.y + r >= LINE_NUM):
                         return False
         return True

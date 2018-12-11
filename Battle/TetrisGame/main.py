@@ -57,7 +57,7 @@ def check_events(piece):
             if event.key == pygame.K_DOWN:
                 piece.move_down()
             elif event.key == pygame.K_UP:
-                piece.move_up()
+                piece.turn()
             elif event.key == pygame.K_LEFT:
                 piece.move_left()
             elif event.key == pygame.K_RIGHT:
