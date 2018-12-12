@@ -2,8 +2,10 @@ import pygame
 
 try:
     from settings import *
+    from gamedisplay import *
 except:
     from .settings import *
+    from .gamedisplay import *
 
 
 class Piece():
@@ -25,10 +27,11 @@ class Piece():
                     self.draw_cell(self.x + c, self.y + r)
 
     def draw_cell(self, x, y):
-        cell_position = (x * CELL_WIDTH + GAME_AREA_LEFT + 1, y * CELL_WIDTH + GAME_AREA_TOP + 1)
-        cell_width_height = (CELL_WIDTH - 2, CELL_WIDTH - 2)
-        cell_rect = pygame.Rect(cell_position, cell_width_height)
-        pygame.draw.rect(self.screen, PIECE_COLORS[self.shape], cell_rect)
+        # cell_position = (x * CELL_WIDTH + GAME_AREA_LEFT + 1, y * CELL_WIDTH + GAME_AREA_TOP + 1)
+        # cell_width_height = (CELL_WIDTH - 2, CELL_WIDTH - 2)
+        # cell_rect = pygame.Rect(cell_position, cell_width_height)
+        # pygame.draw.rect(self.screen, PIECE_COLORS[self.shape], cell_rect)
+        GameDisplay.draw_cell(self.screen,x,y,PIECE_COLORS[self.shape])
 
     def move_right(self):
         if self.can_move_right():
