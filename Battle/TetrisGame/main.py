@@ -20,13 +20,13 @@ def main():
     bg_color = BG_COLOR
 
     random.seed(int(time.time()))#产生不同的随机序列
-    piece = Piece(random.choice(PIECE_TYPES),screen)
     game_wall = GameWall(screen)
+    piece = Piece(random.choice(PIECE_TYPES), screen, game_wall)
     # 窗口主循环
     while True:
         if piece.at_bottom:
             game_wall.add_to_wall(piece)
-            piece = Piece(random.choice(PIECE_TYPES), screen)
+            piece = Piece(random.choice(PIECE_TYPES), screen,game_wall)
         # 遍历事件队列
         check_events(piece)
         screen.fill(bg_color)

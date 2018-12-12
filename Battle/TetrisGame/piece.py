@@ -5,13 +5,14 @@ from gamedisplay import *
 
 
 class Piece():
-    def __init__(self, shape, screen):
+    def __init__(self, shape, screen,gamewall):
         self.x = 4
         self.y = 0
         self.shape = shape
         self.turn_times = 0
         self.screen = screen
         self.at_bottom = False
+        self.game_wall = gamewall
 
     def paint(self):
         shape_template = PIECES[self.shape]
@@ -20,10 +21,10 @@ class Piece():
         for r in range(len(shape_turn)):
             for c in range(len(shape_turn[0])):
                 if shape_turn[r][c] == 'O':
-                    self.draw_cell(self.x + c, self.y + r)
+                    self.draw_cell(self.y + r, self.x + c)
 
-    def draw_cell(self, x, y):
-        GameDisplay.draw_cell(self.screen,x,y,PIECE_COLORS[self.shape])
+    def draw_cell(self, row, column):
+        GameDisplay.draw_cell(self.screen, row, column, PIECE_COLORS[self.shape])
 
     def move_right(self):
         if self.can_move_right():
@@ -72,7 +73,7 @@ class Piece():
         for r in range(len(shape_mtx)):
             for c in range(len(shape_mtx[0])):
                 if shape_mtx[r][c] == 'O':
-                    if self.y + r >= LINE_NUM - 1:
+                    if self.y + r >= LINE_NUM - 1 or self.game_wall.is_wall(self.y + r + 1, self.x + c):
                         return False
         return True
 
