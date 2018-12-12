@@ -1,28 +1,30 @@
 import pygame
-from pygame.locals import *
 import sys
 
-from settings import *
 from piece import Piece
 from gamewall import *
 from gamedisplay import *
-
 import random
 import time
 
-
 def main():
+    # 初始化pygame
     pygame.init()
+    # 创建屏幕对象
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    # 设置窗口标题
     pygame.display.set_caption('俄罗斯方块')
+    # 一直按下某个键，每过100毫秒就引发一个KEYDOWN事件
     pygame.key.set_repeat(10, 100)
+    # 屏幕背景色
     bg_color = BG_COLOR
-    piece = None
-    random.seed(int(time.time()))
+
+    random.seed(int(time.time()))#产生不同的随机序列
+    piece = Piece(random.choice(PIECE_TYPES),screen)
     game_wall = GameWall(screen)
     # 窗口主循环
     while True:
-        if not piece or piece.at_bottom:
+        if piece.at_bottom:
             game_wall.add_to_wall(piece)
             piece = Piece(random.choice(PIECE_TYPES), screen)
         # 遍历事件队列
@@ -34,25 +36,6 @@ def main():
         piece.paint()
         # 重绘界面
         pygame.display.flip()
-
-
-# def draw_game_area(screen):
-#     # 左上到左下(竖线)，向右x+40
-#     for x in range(11):
-#         x = x * 40
-#         pygame.draw.line(screen, (0, 0, 0),(GAME_AREA_LEFT + x, GAME_AREA_TOP), (GAME_AREA_LEFT + x, SCREEN_HEIGHT))
-#
-#     ##左上到右上(横线)，y+40
-#     for y in range(21):
-#         y = y * 40
-#         pygame.draw.line(screen, (0, 0, 0),(GAME_AREA_LEFT, GAME_AREA_TOP + y),(GAME_AREA_LEFT + GAME_AREA_WIDTH, GAME_AREA_TOP + y))
-#
-# def draw_cell(screen, left, top):
-#     cell_left_top = (left, top)
-#     cell_width_height = (CELL_WIDTH, CELL_WIDTH)
-#     cell_rect = pygame.Rect(cell_left_top, cell_width_height)
-#     pygame.draw.rect(screen, CELL_COLOR, cell_rect)
-
 
 def check_events(piece):
     '''捕捉和处理键盘按键事件'''
