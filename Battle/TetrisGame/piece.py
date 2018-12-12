@@ -1,11 +1,7 @@
 import pygame
 
-try:
-    from settings import *
-    from gamedisplay import *
-except:
-    from .settings import *
-    from .gamedisplay import *
+from settings import *
+from gamedisplay import *
 
 
 class Piece():

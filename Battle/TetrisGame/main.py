@@ -2,16 +2,10 @@ import pygame
 from pygame.locals import *
 import sys
 
-try:
-    from settings import *
-    from piece import Piece
-    from gamewall import *
-    from gamedisplay import *
-except:
-    from .settings import *
-    from .piece import Piece
-    from .gamewall import *
-    from .gamedisplay import *
+from settings import *
+from piece import Piece
+from gamewall import *
+from gamedisplay import *
 
 import random
 import time

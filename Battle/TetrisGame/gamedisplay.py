@@ -1,7 +1,4 @@
-try:
-    from setting import *
-except:
-    from .settings import *
+from settings import *
 
 import pygame
 

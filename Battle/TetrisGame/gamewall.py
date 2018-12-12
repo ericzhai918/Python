@@ -1,7 +1,4 @@
-try:
-    from settings import *
-except:
-    from .settings import *
+from settings import *
 
 class GameWall():
     '''游戏区墙体类。记住落到底部的方块组成的“墙”。'''
