@@ -29,8 +29,32 @@ def main():
                 sys.exit()
 
         screen.fill(bg_color)
+        draw_game_area(screen)
 
         pygame.display.flip()
+
+
+def draw_game_area(screen):
+    # 左
+    pygame.draw.line(screen, EDGE_COLOR, (GAME_AREA_LR, GAMW_AREA_TOP), (GAME_AREA_LR, SCREEN_HEIGHT))
+
+    # 上
+    # pygame.draw.line(screen, EDGE_COLOR, (GAME_AREA_LR, GAMW_AREA_TOP), (GAME_AREA_LR + GAME_AREA_WIDTH, GAMW_AREA_TOP))
+    # 右
+    pygame.draw.line(screen, EDGE_COLOR, (GAME_AREA_LR + GAME_AREA_WIDTH, GAMW_AREA_TOP),
+                     (GAME_AREA_LR + GAME_AREA_WIDTH, SCREEN_HEIGHT))
+    # 下
+    # pygame.draw.line(screen, EDGE_COLOR, (GAME_AREA_LR, SCREEN_HEIGHT), (GAME_AREA_LR + GAME_AREA_WIDTH, SCREEN_HEIGHT))
+
+    # 行，20行，纵坐标衡量增大
+    for n in range(0, 21):
+        pygame.draw.line(screen, EDGE_COLOR, (GAME_AREA_LR, GAMW_AREA_TOP + CELL_WIDTH * n),
+                         (GAME_AREA_LR + GAME_AREA_WIDTH, GAMW_AREA_TOP + CELL_WIDTH * n))
+
+    # 列，10列，横坐标衡量增大
+    for n in range(0, 11):
+        pygame.draw.line(screen, EDGE_COLOR, (GAME_AREA_LR + CELL_WIDTH * n, GAMW_AREA_TOP),
+                         (GAME_AREA_LR + CELL_WIDTH * n, SCREEN_HEIGHT))
 
 
 if __name__ == '__main__':
