@@ -1,6 +1,7 @@
 from settings import *
 import pygame
 import sys
+from Piece import *
 
 def main():
     pygame.init()
@@ -8,6 +9,7 @@ def main():
     pygame.display.set_caption("俄罗斯方块")
 
     bg_color = BG_COLOR
+    piece = Piece('S',screen)
 
     while True:
         for event in pygame.event.get():
@@ -16,7 +18,8 @@ def main():
 
         screen.fill(bg_color)
         draw_game_area(screen)
-        draw_cell(screen, GAME_AREA_LR, GAMW_AREA_TOP)
+        # draw_cell(screen, GAME_AREA_LR, GAMW_AREA_TOP)
+        piece.paint()
 
         pygame.display.flip()
 
