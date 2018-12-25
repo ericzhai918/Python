@@ -13,7 +13,7 @@ def main():
     piece = Piece('S', screen)
 
     while True:
-        check_events()
+        check_events(piece)
 
         screen.fill(bg_color)
         draw_game_area(screen)
@@ -22,19 +22,19 @@ def main():
         pygame.display.flip()
 
 
-def check_events():
+def check_events(piece):
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_DOWN:
-                print("向下方向键被按下")
+                piece.move_down()
             elif event.key == pygame.K_UP:
                 print("向上方向键被按下")
             elif event.key == pygame.K_LEFT:
-                print("向左方向键被按下")
+                piece.move_left()
             elif event.key == pygame.K_RIGHT:
-                print("向右方向键被按下")
+                piece.move_right()
 
 
 def draw_game_area(screen):
