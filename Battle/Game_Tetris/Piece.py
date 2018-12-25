@@ -87,3 +87,7 @@ class Piece():
                             self.y + row < 0 or self.y + row >= LINE_NUM - 1):
                         return False
         return True
+
+    def fall_down(self):
+        while not self.is_on_bottom:
+            self.move_down()
