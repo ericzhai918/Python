@@ -1,7 +1,7 @@
 from settings import *
 import pygame
 import sys
-from Piece import *
+from piece import *
 import random
 import time
 
