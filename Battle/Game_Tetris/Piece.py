@@ -80,7 +80,7 @@ class Piece():
             for column in range(len(shape_mtx[0])):
                 if shape_mtx[row][column] == 'O':
                     if (self.x + column <
-                        0 or self.x + column >= COLUMN_NUM-1) or (
-                            self.y + row < 0 or self.y + row >= LINE_NUM-1):
+                        0 or self.x + column >= COLUMN_NUM - 1) or (
+                            self.y + row < 0 or self.y + row >= LINE_NUM - 1):
                         return False
         return True

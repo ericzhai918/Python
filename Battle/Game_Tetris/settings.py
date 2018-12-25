@@ -115,5 +115,3 @@ PIECES = {
     'O': O_SHAPE_TEMPLATE,
     'T': T_SHAPE_TEMPLATE,
 }
-
-
