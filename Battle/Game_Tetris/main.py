@@ -2,7 +2,8 @@ from settings import *
 import pygame
 import sys
 from Piece import *
-
+import random
+import time
 
 def main():
     pygame.init()
@@ -10,9 +11,12 @@ def main():
     pygame.display.set_caption("俄罗斯方块")
 
     bg_color = BG_COLOR
-    piece = Piece('S', screen)
+    piece = None
+    random.seed(int(time.time()))
 
     while True:
+        if not piece or piece.is_on_bottom:
+            piece = Piece(random.choice(PIECE_TYPES), screen)
         check_events(piece)
 
         screen.fill(bg_color)

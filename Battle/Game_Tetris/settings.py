@@ -115,3 +115,5 @@ PIECES = {
     'O': O_SHAPE_TEMPLATE,
     'T': T_SHAPE_TEMPLATE,
 }
+
+PIECE_TYPES = ['S', 'Z', 'J', 'L', 'I', 'O', 'T']
