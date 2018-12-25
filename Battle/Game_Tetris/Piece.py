@@ -4,7 +4,7 @@ import pygame
 
 class Piece():
     def __init__(self, shape, screen):
-        self.x = 3
+        self.x = 4
         self.y = 0
         self.shape = shape
         self.screen = screen
