@@ -12,6 +12,9 @@ BG_COLOR = (230, 230, 230)
 EDGE_COLOR = (0, 0, 0)
 CELL_COLOR = (100, 100, 100)
 
+COLUMN_NUM = 10
+LINE_NUM = 20
+
 S_SHAPE_TEMPLATE = [
     '.OO.',
     'OO..',

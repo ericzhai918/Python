@@ -24,10 +24,43 @@ class Piece():
         pygame.draw.rect(self.screen, CELL_COLOR, cell_rect)
 
     def move_right(self):
-        self.x += 1
+        if self.can_move_right():
+            self.x += 1
 
     def move_left(self):
-        self.x -= 1
+        if self.can_move_left():
+            self.x -= 1
 
     def move_down(self):
-        self.y += 1
+        if self.can_move_down():
+            self.y += 1
+
+    def can_move_right(self):
+        shape_template = PIECES[self.shape]
+
+        for row in range(len(shape_template)):
+            for column in range(len(shape_template[0])):
+                if shape_template[row][column] == 'O':
+                    if self.x + column >= COLUMN_NUM - 1:
+                        return False
+        return True
+
+    def can_move_left(self):
+        shape_template = PIECES[self.shape]
+
+        for row in range(len(shape_template)):
+            for column in range(len(shape_template[0])):
+                if shape_template[row][column] == 'O':
+                    if self.x + column <= 0:
+                        return False
+        return True
+
+    def can_move_down(self):
+        shape_template = PIECES[self.shape]
+
+        for row in range(len(shape_template)):
+            for column in range(len(shape_template[0])):
+                if shape_template[row][column] == 'O':
+                    if self.y + row >= LINE_NUM-1:
+                        return False
+        return True
