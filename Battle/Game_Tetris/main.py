@@ -16,8 +16,6 @@ def main():
 
     bg_color = BG_COLOR
     random.seed(int(time.time()))
-    game_wall = GameWall(screen)
-    piece = Piece(random.choice(PIECE_TYPES), screen, game_wall)
     game_state = GameState(screen)
 
     while True:
