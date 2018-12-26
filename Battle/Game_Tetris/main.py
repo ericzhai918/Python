@@ -4,6 +4,7 @@ import sys
 from piece import *
 import random
 import time
+from gamewall import *
 
 def main():
     pygame.init()
@@ -12,16 +13,20 @@ def main():
     pygame.key.set_repeat(10,100)
 
     bg_color = BG_COLOR
-    piece = None
+    # piece = None
     random.seed(int(time.time()))
+    piece = Piece(random.choice(PIECE_TYPES), screen)
+    game_wall =GameWall(screen)
 
     while True:
-        if not piece or piece.is_on_bottom:
-            piece = Piece(random.choice(PIECE_TYPES), screen)
+        if piece.is_on_bottom:
+            game_wall.add_to_wall(piece)
+            piece = Piece(random.choice(PIECE_TYPES),screen)
+
         check_events(piece)
 
         screen.fill(bg_color)
-        draw_game_area(screen)
+        GameDisplay.draw_game_area(screen,game_wall)
         piece.paint()
 
         pygame.display.flip()
@@ -42,18 +47,6 @@ def check_events(piece):
                 piece.move_right()
             elif event.key == pygame.K_f:
                 piece.fall_down()
-
-
-def draw_game_area(screen):
-    # 行，20行，纵坐标衡量增大
-    for n in range(0, 21):
-        pygame.draw.line(screen, EDGE_COLOR, (GAME_AREA_LR, GAMW_AREA_TOP + CELL_WIDTH * n),
-                         (GAME_AREA_LR + GAME_AREA_WIDTH, GAMW_AREA_TOP + CELL_WIDTH * n))
-
-    # 列，10列，横坐标衡量增大
-    for n in range(0, 11):
-        pygame.draw.line(screen, EDGE_COLOR, (GAME_AREA_LR + CELL_WIDTH * n, GAMW_AREA_TOP),
-                         (GAME_AREA_LR + CELL_WIDTH * n, SCREEN_HEIGHT))
 
 
 if __name__ == '__main__':
