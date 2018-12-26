@@ -14,7 +14,6 @@ def main():
     pygame.key.set_repeat(10, 100)
 
     bg_color = BG_COLOR
-    # piece = None
     random.seed(int(time.time()))
     game_wall = GameWall(screen)
     piece = Piece(random.choice(PIECE_TYPES), screen, game_wall)

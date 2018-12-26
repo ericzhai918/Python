@@ -2,15 +2,16 @@ from settings import *
 import pygame
 from gamedisplay import *
 
+
 class Piece():
-    def __init__(self, shape, screen,gamewall):
+    def __init__(self, shape, screen, gamewall):
         self.x = 4
         self.y = 0
         self.shape = shape
         self.screen = screen
         self.turn_times = 0
         self.is_on_bottom = False
-        self.game_wall=gamewall
+        self.game_wall = gamewall
 
     def paint(self):
         shape_template = PIECES[self.shape]
@@ -19,7 +20,7 @@ class Piece():
         for row in range(len(shape_turn)):
             for column in range(len(shape_turn[0])):
                 if shape_turn[row][column] == 'O':
-                    self.draw_cell(self.y + row,self.x + column)
+                    self.draw_cell(self.y + row, self.x + column)
 
     def draw_cell(self, row, column):
         GameDisplay.draw_cell(self.screen, row, column, PIECE_COLORS[self.shape])

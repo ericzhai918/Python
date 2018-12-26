@@ -50,7 +50,7 @@ I_SHAPE_TEMPLATE = [
 
 O_SHAPE_TEMPLATE = [
     ['OO',
-    'OO']
+     'OO']
 ]
 
 J_SHAPE_TEMPLATE = [
