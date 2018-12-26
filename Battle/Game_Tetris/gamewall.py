@@ -23,3 +23,6 @@ class GameWall():
 #?
     def set_cell(self, row,column, shape_label):
         self.area[row][column] = shape_label
+
+    def is_wall(self,row,column):
+        return self.area[row][column] != WALL_BLANK_LABEL

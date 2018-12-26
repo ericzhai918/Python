@@ -3,13 +3,14 @@ import pygame
 from gamedisplay import *
 
 class Piece():
-    def __init__(self, shape, screen):
+    def __init__(self, shape, screen,gamewall):
         self.x = 4
         self.y = 0
         self.shape = shape
         self.screen = screen
         self.turn_times = 0
         self.is_on_bottom = False
+        self.game_wall=gamewall
 
     def paint(self):
         shape_template = PIECES[self.shape]
@@ -63,7 +64,7 @@ class Piece():
         for row in range(len(shape_template)):
             for column in range(len(shape_template[0])):
                 if shape_template[row][column] == 'O':
-                    if self.y + row >= LINE_NUM - 1:
+                    if self.y + row >= LINE_NUM - 1 or self.game_wall.is_wall(self.y + row + 1, self.x + column):
                         return False
         return True
 

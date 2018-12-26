@@ -6,27 +6,28 @@ import random
 import time
 from gamewall import *
 
+
 def main():
     pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     pygame.display.set_caption("俄罗斯方块")
-    pygame.key.set_repeat(10,100)
+    pygame.key.set_repeat(10, 100)
 
     bg_color = BG_COLOR
     # piece = None
     random.seed(int(time.time()))
-    piece = Piece(random.choice(PIECE_TYPES), screen)
-    game_wall =GameWall(screen)
+    game_wall = GameWall(screen)
+    piece = Piece(random.choice(PIECE_TYPES), screen, game_wall)
 
     while True:
         if piece.is_on_bottom:
             game_wall.add_to_wall(piece)
-            piece = Piece(random.choice(PIECE_TYPES),screen)
+            piece = Piece(random.choice(PIECE_TYPES), screen, game_wall)
 
         check_events(piece)
 
         screen.fill(bg_color)
-        GameDisplay.draw_game_area(screen,game_wall)
+        GameDisplay.draw_game_area(screen, game_wall)
         piece.paint()
 
         pygame.display.flip()
