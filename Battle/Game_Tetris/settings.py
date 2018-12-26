@@ -128,3 +128,5 @@ PIECE_COLORS = {
     'O': (255, 0, 0),
     'T': (255, 128, 0)
 }
+
+TIMER_INTERVAL = 1000
