@@ -21,12 +21,13 @@ def main():
     while True:
         if game_state.piece.is_on_bottom:
             game_state.wall.add_to_wall(game_state.piece)
+            game_state.add_score(game_state.wall.eliminate_lines())
             game_state.piece = Piece(random.choice(PIECE_TYPES), screen, game_state.wall)
 
         check_events(game_state.piece)
 
         screen.fill(bg_color)
-        GameDisplay.draw_game_area(screen, game_state.wall)
+        GameDisplay.draw_game_area(screen, game_state)
         game_state.piece.paint()
 
         pygame.display.flip()

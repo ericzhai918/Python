@@ -4,7 +4,7 @@ import pygame
 
 class GameDisplay():
     @staticmethod
-    def draw_game_area(screen, game_wall):
+    def draw_game_area(screen, game_state):
         '''绘制游戏区域'''
         # 行，20行，纵坐标衡量增大
         for row in range(0, 21):
@@ -16,7 +16,8 @@ class GameDisplay():
             pygame.draw.line(screen, EDGE_COLOR, (GAME_AREA_LR + CELL_WIDTH * column, GAMW_AREA_TOP),
                              (GAME_AREA_LR + CELL_WIDTH * column, SCREEN_HEIGHT))
 
-        GameDisplay.draw_wall(game_wall)
+        GameDisplay.draw_wall(game_state.wall)
+        GameDisplay.draw_score(screen, game_state.game_score)
 
     @staticmethod
     def draw_wall(game_wall):
@@ -34,8 +35,16 @@ class GameDisplay():
         cell_rect = pygame.Rect(cell_position, cell_width_height)
         pygame.draw.rect(screen, color, cell_rect)
 
-'''
-知识点：类定义内部，方法名之前的 @staticmethod 表明这一方法是一个静态方法。
-所谓静态方法，是指没有访问对象的属性的方法。静态方法本质上跟函数类似。
-只不过调用的写法是“类名.方法()”，比如 GameDisplay.draw_cell()，或 GameDisplay.draw_wall()
-'''
+    @staticmethod
+    def draw_score(screen, score):
+        '''绘制游戏得分'''
+        score_label_font = pygame.font.SysFont('simhei', 28)
+        score_label_surface = score_label_font.render(u'得分：', False, SCORE_LABEL_COLOR)
+        score_label_position = (GAME_AREA_LR + GAME_AREA_WIDTH + 40, GAMW_AREA_TOP)
+        screen.blit(score_label_surface, score_label_position)
+
+        score_font = pygame.font.SysFont('arial', 36)
+        score_surface = score_font.render(str(score), False, SCORE_COLOR)
+        score_label_width = score_label_surface.get_width()
+        score_position = (score_label_position[0] + score_label_width, score_label_position[1])
+        screen.blit(score_surface, score_position)
