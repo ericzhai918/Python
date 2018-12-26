@@ -18,10 +18,10 @@ class Piece():
         for row in range(len(shape_turn)):
             for column in range(len(shape_turn[0])):
                 if shape_turn[row][column] == 'O':
-                    self.draw_cell(self.x + column, self.y + row)
+                    self.draw_cell(self.y + row,self.x + column)
 
-    def draw_cell(self, x, y):
-        GameDisplay.draw_cell(self.screen, x, y, PIECE_COLORS[self.shape])
+    def draw_cell(self, row, column):
+        GameDisplay.draw_cell(self.screen, row, column, PIECE_COLORS[self.shape])
 
     def move_right(self):
         if self.can_move_right():

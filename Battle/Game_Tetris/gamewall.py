@@ -19,8 +19,7 @@ class GameWall():
         for row in range(len(shape_turn)):
             for column in range(len(shape_turn[0])):
                 if shape_turn[row][column] == 'O':
-                    self.set_cell((piece.x + column, piece.y + row), piece.shape)
+                    self.set_cell(piece.y + row,piece.x + column, piece.shape)
 #?
-    def set_cell(self, position, shape_label):
-        column, row = position
+    def set_cell(self, row,column, shape_label):
         self.area[row][column] = shape_label

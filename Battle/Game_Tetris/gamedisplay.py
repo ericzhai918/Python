@@ -4,15 +4,15 @@ import pygame
 
 class GameDisplay():
     @staticmethod
-    def draw_cell(screen, x, y, color):
-        '''第y行x列的格子里填充color颜色。一种方块对应一种颜色。'''
-        cell_position = (x * CELL_WIDTH + GAME_AREA_LR + 1, y * CELL_WIDTH + GAMW_AREA_TOP + 1)
+    def draw_cell(screen, row, column, color):
+        '''第row行column列的格子里填充color颜色。一种方块对应一种颜色。'''
+        cell_position = (column * CELL_WIDTH + GAME_AREA_LR + 1, row * CELL_WIDTH + GAMW_AREA_TOP + 1)
         cell_width_height = (CELL_WIDTH - 2, CELL_WIDTH - 2)
         cell_rect = pygame.Rect(cell_position, cell_width_height)
         pygame.draw.rect(screen, color, cell_rect)
 
     @staticmethod
-    def draw_game_area(screen,game_wall):
+    def draw_game_area(screen, game_wall):
         '''绘制游戏区域'''
         # 行，20行，纵坐标衡量增大
         for n in range(0, 21):
@@ -32,13 +32,7 @@ class GameDisplay():
         for row in range(LINE_NUM):
             for column in range(COLUMN_NUM):
                 if game_wall.area[row][column] != WALL_BLANK_LABEL:
-                    GameDisplay.draw_cell(game_wall.screen ,column,row,PIECE_COLORS[game_wall.area[row][column]])
-
-
-
-
-
-
+                    GameDisplay.draw_cell(game_wall.screen, row, column, PIECE_COLORS[game_wall.area[row][column]])
 
 
 '''
