@@ -29,7 +29,7 @@ def main():
         check_events(game_state)
 
         screen.fill(bg_color)
-        GameDisplay.draw_game_area(screen, game_state,game_resource)
+        GameDisplay.draw_game_area(screen, game_state, game_resource)
         if game_state.piece:
             game_state.piece.paint()
 
@@ -47,23 +47,28 @@ def check_events(game_state):
 
 
 def on_key_down(event, game_state):
-    if event.key == pygame.K_DOWN:
+    if not game_state.paused and event.key == pygame.K_DOWN:
         if game_state.piece:
             game_state.piece.move_down()
-    elif event.key == pygame.K_UP:
+    elif not game_state.paused and event.key == pygame.K_UP:
         if game_state.piece:
             game_state.piece.turn()
-    elif event.key == pygame.K_LEFT:
+    elif not game_state.paused and event.key == pygame.K_LEFT:
         if game_state.piece:
             game_state.piece.move_left()
-    elif event.key == pygame.K_RIGHT:
+    elif not game_state.paused and event.key == pygame.K_RIGHT:
         if game_state.piece:
             game_state.piece.move_right()
-    elif event.key == pygame.K_f:
+    elif not game_state.paused and event.key == pygame.K_f:
         if game_state.piece:
             game_state.piece.fall_down()
-    elif event.key == pygame.K_s and game_state.stopped:
+    elif not game_state.paused and event.key == pygame.K_s and game_state.stopped:
         game_state.start_game()
+    elif event.key == pygame.K_p and not game_state.stopped:
+        if game_state.paused:
+            game_state.resume_game()
+        else:
+            game_state.pause_game()
 
 
 if __name__ == '__main__':
