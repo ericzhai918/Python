@@ -4,13 +4,15 @@ import pygame
 
 class GameDisplay():
     @staticmethod
-    def draw_game_area(screen, game_state,game_resource):
+    def draw_game_area(screen, game_state, game_resource):
         '''绘制游戏区域'''
         GameDisplay.draw_grid(screen)
         GameDisplay.draw_wall(game_state.wall)
         GameDisplay.draw_score(screen, game_state.game_score)
         if game_state.stopped:
             GameDisplay.draw_start_prompt(screen, game_resource)
+        if game_state.paused:
+            GameDisplay.draw_pause_prompt(screen, game_resource)
 
     @staticmethod
     def draw_grid(screen):
@@ -57,3 +59,11 @@ class GameDisplay():
     def draw_start_prompt(screen, game_resource):
         start_tip_position = (GAME_AREA_LR + 2 * CELL_WIDTH, GAME_AREA_TOP + 10 * CELL_WIDTH)
         screen.blit(game_resource.load_newgame_img(), start_tip_position)
+
+    @staticmethod
+    def draw_pause_prompt(screen, game_resource):
+        pause_position = (GAME_AREA_LR + 1 * CELL_WIDTH, GAME_AREA_TOP + 9 * CELL_WIDTH)
+        screen.blit(game_resource.load_pausing_img(), pause_position)
+
+        resume_tip_position = (GAME_AREA_LR + 1 * CELL_WIDTH, GAME_AREA_TOP + 11 * CELL_WIDTH)
+        screen.blit(game_resource.load_continue_img(), resume_tip_position)
