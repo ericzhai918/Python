@@ -51,6 +51,8 @@ class GameState():
                 break
         if not self.stopped:
             self.piece = Piece(random.choice(PIECE_TYPES), self.screen, self.wall)
+            if self.piece.hit_wall():
+                self.stopped = True
         else:
             self.stop_timer()
 

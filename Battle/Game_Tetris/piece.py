@@ -45,7 +45,8 @@ class Piece():
         for row in range(len(shape_template)):
             for column in range(len(shape_template[0])):
                 if shape_template[row][column] == 'O':
-                    if self.x + column >= COLUMN_NUM - 1:
+                    # 方块到最右侧墙体时或者紧挨着方块的右侧有墙体时，返回False
+                    if self.x + column >= COLUMN_NUM - 1 or self.game_wall.is_wall(self.y + row, self.x + column + 1):
                         return False
         return True
 
@@ -55,7 +56,8 @@ class Piece():
         for row in range(len(shape_template)):
             for column in range(len(shape_template[0])):
                 if shape_template[row][column] == 'O':
-                    if self.x + column <= 0:
+                    #方块到最左侧墙体时或者紧挨着方块的左侧有墙体时，返回False
+                    if self.x + column <= 0 or self.game_wall.is_wall(self.y + row, self.x + column - 1):
                         return False
         return True
 
@@ -65,6 +67,7 @@ class Piece():
         for row in range(len(shape_template)):
             for column in range(len(shape_template[0])):
                 if shape_template[row][column] == 'O':
+                    # 方块在底部时或者紧挨着方块的下方单元格有被墙体占据时，返回False
                     if self.y + row >= LINE_NUM - 1 or self.game_wall.is_wall(self.y + row + 1, self.x + column):
                         return False
         return True
@@ -81,12 +84,20 @@ class Piece():
         for row in range(len(shape_mtx)):
             for column in range(len(shape_mtx[0])):
                 if shape_mtx[row][column] == 'O':
-                    if (self.x + column <
-                        0 or self.x + column >= COLUMN_NUM - 1) or (
-                            self.y + row < 0 or self.y + row >= LINE_NUM - 1):
+                    if (self.x + column < 0 or self.x + column >= COLUMN_NUM - 1) or (self.y + row < 0 or self.y + row >= LINE_NUM - 1)\
+                            or (self.game_wall.is_wall(self.y + row, self.x + column)):
                         return False
         return True
 
     def fall_down(self):
         while not self.is_on_bottom:
             self.move_down()
+
+    def hit_wall(self):
+        shape_mtx = PIECES[self.shape][self.turn_times]
+        for row in range(len(shape_mtx)):
+            for column in range(len(shape_mtx[0])):
+                if shape_mtx[row][column] == 'O':
+                    if self.game_wall.is_wall(self.y+row,self.x+column):
+                        return True
+        return False
