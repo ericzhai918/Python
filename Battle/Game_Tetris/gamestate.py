@@ -9,10 +9,9 @@ class GameState():
     def __init__(self, screen):
         self.screen = screen
         self.wall = GameWall(screen)
-        # self.piece = Piece(random.choice(PIECE_TYPES), screen, self.wall)
         self.piece = None
+        self.next_piece = None
         self.timer_interval = TIMER_INTERVAL
-        # self.set_timer(self.timer_interval)
         self.game_score = 0
         self.stopped = True
         self.paused = False
@@ -28,7 +27,9 @@ class GameState():
         self.stopped = False
         self.set_timer(TIMER_INTERVAL)
         self.timer_interval = TIMER_INTERVAL
-        self.piece = Piece(random.choice(PIECE_TYPES), self.screen, self.wall)
+        # self.piece = Piece(random.choice(PIECE_TYPES), self.screen, self.wall)
+        self.piece = self.new_piece()
+        self.piece = self.new_piece()
         self.session_count += 1
         self.wall.clear()
         self.game_score = 0
@@ -50,11 +51,19 @@ class GameState():
                 self.stopped = True
                 break
         if not self.stopped:
-            self.piece = Piece(random.choice(PIECE_TYPES), self.screen, self.wall)
+            # self.piece = Piece(random.choice(PIECE_TYPES), self.screen, self.wall)
+            self.piece = self.new_piece()
             if self.piece.hit_wall():
                 self.stopped = True
-        else:
+        if self.stopped:
             self.stop_timer()
 
     def stop_timer(self):
         pygame.time.set_timer(pygame.USEREVENT, 0)
+
+    def new_piece(self):
+        self.piece = self.next_piece
+        self.next_piece = Piece(random.choice(PIECE_TYPES), self.screen, self.wall)
+
+        return self.piece
+

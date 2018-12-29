@@ -27,10 +27,11 @@ def main():
         check_events(game_state)
 
         screen.fill(bg_color)
-        GameDisplay.draw_game_area(screen, game_state, game_resource)
+
         if game_state.piece:
             game_state.piece.paint()
 
+        GameDisplay.draw_game_area(screen, game_state, game_resource)
         pygame.display.flip()
 
 
