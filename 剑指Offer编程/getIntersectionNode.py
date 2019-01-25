@@ -65,7 +65,7 @@ class Solution(object):
             return None
         pa = headA
         pb = headB
-        while pA is not pB:
+        while pa is not pb:
             pa = headB if pa is None else pa.next
             pb = headA if pb is None else pb.next
         return pa
