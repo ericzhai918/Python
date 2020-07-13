@@ -111,3 +111,8 @@ tmp111.py
 .git
 static
 __init__.py
+
+.cfg
+.exe
+.ps1
+.bat
