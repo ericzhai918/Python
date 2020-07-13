@@ -1,19 +1,18 @@
 import pygame
 
-try:
-    from settings import *
-except:
-    from .settings import *
+from settings import *
+from gamedisplay import *
 
 
 class Piece():
-    def __init__(self, shape, screen):
+    def __init__(self, shape, screen,gamewall):
         self.x = 4
         self.y = 0
         self.shape = shape
         self.turn_times = 0
         self.screen = screen
         self.at_bottom = False
+        self.game_wall = gamewall
 
     def paint(self):
         shape_template = PIECES[self.shape]
@@ -22,13 +21,10 @@ class Piece():
         for r in range(len(shape_turn)):
             for c in range(len(shape_turn[0])):
                 if shape_turn[r][c] == 'O':
-                    self.draw_cell(self.x + c, self.y + r)
+                    self.draw_cell(self.y + r, self.x + c)
 
-    def draw_cell(self, x, y):
-        cell_position = (x * CELL_WIDTH + GAME_AREA_LEFT + 1, y * CELL_WIDTH + GAME_AREA_TOP + 1)
-        cell_width_height = (CELL_WIDTH - 2, CELL_WIDTH - 2)
-        cell_rect = pygame.Rect(cell_position, cell_width_height)
-        pygame.draw.rect(self.screen, PIECE_COLORS[self.shape], cell_rect)
+    def draw_cell(self, row, column):
+        GameDisplay.draw_cell(self.screen, row, column, PIECE_COLORS[self.shape])
 
     def move_right(self):
         if self.can_move_right():
@@ -77,7 +73,7 @@ class Piece():
         for r in range(len(shape_mtx)):
             for c in range(len(shape_mtx[0])):
                 if shape_mtx[r][c] == 'O':
-                    if self.y + r >= LINE_NUM - 1:
+                    if self.y + r >= LINE_NUM - 1 or self.game_wall.is_wall(self.y + r + 1, self.x + c):
                         return False
         return True
 
