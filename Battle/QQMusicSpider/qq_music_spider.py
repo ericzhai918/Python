@@ -135,5 +135,5 @@ def get_all_singer():
 if __name__ == '__main__':
     # get_all_singer()
     cookies = getCookies()
-    get_singer_songs('001fNHEf1SFEFN',cookies)
+    get_singer_songs('0025NhlN2yWrP4',cookies)
 

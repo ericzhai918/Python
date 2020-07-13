@@ -10,7 +10,7 @@ headers = {
 
 def get_html():
     for page in range(121):
-        url = "https://apiopen.jingdaka.com/user/submitlist?limit=10&offset={}&search_user_name=&course_id=230969&record_at=2019-02-14".format(page * 10)
+        url = "https://apiopen.jingdaka.com/user/submitlist?limit=10&offset={}&search_user_name=&course_id=230969&record_at=2020-02-14".format(page * 10)
 
         try:
             response = requests.get(url, headers=headers, verify='F:\\charles-proxy-ssl-proxying-certificate.crt')
@@ -103,9 +103,9 @@ def save_info_to_html(results):
         f.write(info_box_html)
 
 if __name__ == '__main__':
-    get_html()
-    # htmlPage = get_html()
-    # results = get_messages(htmlPage)
+    # get_html()
+    htmlPage = get_html()
+    results = get_messages(htmlPage)
     # results = get_messages(get_html())
-    #
+
     # save_info_to_html(results)

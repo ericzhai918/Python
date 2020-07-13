@@ -12,7 +12,7 @@ Base = declarative_base()
 
 # 用户信息表
 class User(Base):
-    __tablename__ = 'user190215'
+    __tablename__ = 'user200214'
     id = Column(Integer(), primary_key=True)
     user_id = Column(String(100), comment='用户ID')
     user_name = Column(String(300), comment='用户昵称')
