@@ -11,9 +11,6 @@ class Solution:
         answer = []
         # 统计数组中元素的个数
         number = 1
-        if m == 0:
-            return answer
-
         i = j = 0
 
         # 定义四个边界
